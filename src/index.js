@@ -1,4 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-ReactDOM.render(<div>Bingo!</div>, document.getElementById('root'));
+import App from './components/App';
+
+const JSX = (
+    <div>
+        <App/>
+    </div>
+);
+
+ReactDOM.render(JSX, document.getElementById('root'));
