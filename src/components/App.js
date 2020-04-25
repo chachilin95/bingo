@@ -1,10 +1,12 @@
 import React from 'react';
 
+// components
+import BingoSheet from './BingoSheet';
 
 export default () => {
     return (
         <div>
-            Play Bingo!
+            <BingoSheet/>
         </div>
     );
 };
