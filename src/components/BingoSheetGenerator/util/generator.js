@@ -4,8 +4,7 @@ export const FLAGS = {
     init: 0
 }
 
-export const generateBingoSheet = ({numRows, numColumns, maxValue}) => {
-    const range = maxValue / numColumns;
+export const generateBingoSheet = ({numRows, numColumns, columnRange}) => {
     const center = {
         column: Math.floor(numColumns / 2),
         row: Math.floor(numRows / 2)
@@ -17,7 +16,7 @@ export const generateBingoSheet = ({numRows, numColumns, maxValue}) => {
     for (let col = 0; col < numColumns; col++) {
         let used = [];
         let sheetColumn = [];
-        let base = (col * range) + 1;
+        let base = (col * columnRange) + 1;
 
         for (let row = 0; row < numRows; row++) {
             let value = FLAGS.error;
@@ -27,7 +26,7 @@ export const generateBingoSheet = ({numRows, numColumns, maxValue}) => {
             } else {
                 let isUnique = true;
                 while (isUnique) {
-                    value = base + Math.floor(((Math.random() * range)));
+                    value = base + Math.floor(((Math.random() * columnRange)));
                     isUnique = used.includes(value);
                 }
                 used.push(value);
@@ -40,3 +39,5 @@ export const generateBingoSheet = ({numRows, numColumns, maxValue}) => {
     
     return sheet;
 }
+
+export default generateBingoSheet;

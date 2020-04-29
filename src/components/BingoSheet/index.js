@@ -1,6 +1,7 @@
 import React from 'react';
 
-const BingoSheet = () => {
+const BingoSheet = ({ sheet }) => {
+    console.log(sheet);
     return (
         <div>
             <h1>Bingo Time!</h1>
