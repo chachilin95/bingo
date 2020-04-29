@@ -32,7 +32,8 @@ export const generateBingoSheet = ({numRows, numColumns, columnRange}) => {
                 used.push(value);
             }
 
-            sheetColumn.push(value);
+            const cellData = { value, isSelected: false };
+            sheetColumn.push(cellData);
         }
         sheet.push(sheetColumn);
     }

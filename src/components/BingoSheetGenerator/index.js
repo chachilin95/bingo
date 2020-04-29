@@ -68,13 +68,13 @@ const BingoSheetGenerator = ({ handler }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const sheetSettings = { numRows, numColumns, columnRange };
+        const settings = { numRows, numColumns, columnRange };
 
-        const results = ValidateSheetSettings(sheetSettings);
+        const results = ValidateSheetSettings(settings);
         
         if (results.pass) {
-            const newSheet = SheetGenerator(sheetSettings);
-            handler(newSheet);
+            const sheet = SheetGenerator(settings);
+            handler({ sheet, settings });
         } else {
             setErrorMessage(`The Sheet is Invalid: ${results.error}`)
         }

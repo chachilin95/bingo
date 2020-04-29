@@ -6,12 +6,13 @@ import BingoSheetGenerator from './BingoSheetGenerator';
 
 export default () => {
 
-    const [bingoSheet, updateBingoSheet] = useState([]);
+    const initGameData = { sheet: [], settings: {}}
+    const [gameData, updateGameData] = useState(initGameData);
 
     return (
         <div>
-            <BingoSheetGenerator handler={(sheet) => updateBingoSheet(sheet)}/>
-            <BingoSheet sheet={bingoSheet}/>
+            <BingoSheetGenerator handler={(data) => updateGameData(data)}/>
+            <BingoSheet gameData={gameData}/>
         </div>
     );
 };
