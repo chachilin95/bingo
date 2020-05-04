@@ -1,5 +1,6 @@
 import React from 'react';
 
+import './styles.css';
 import SheetCell from './SheetCell';
 
 const BlankBingoSheet = (
@@ -20,7 +21,7 @@ const BingoSheet = ({ gameData }) => {
     let sheetJSX = [];
     sheet.forEach((column, columnIndex) => {
         sheetJSX.push(
-            <div key={columnIndex}>
+            <div key={columnIndex} className='sheet__column'>
                 {column.map((cell, rowIndex) => {
                     const cellKey=`${columnIndex}:${rowIndex}`;
                     return (
@@ -32,7 +33,7 @@ const BingoSheet = ({ gameData }) => {
     });
 
     return (
-        <div>
+        <div className='sheet'>
             {sheetJSX.map((sheetColumn) => sheetColumn)}
         </div>
     );
