@@ -12,15 +12,15 @@ const BlankBingoSheet = (
 const BingoSheet = ({ gameData, handlers }) => {
 
     const sheet = gameData.sheet;
-
     if (Array.isArray(sheet) && sheet.length === 0) {
         return BlankBingoSheet;
     }
 
-    const createSheetCellProps = (columnIndex, rowIndex, value) => ({
+    const createSheetCellProps = (columnIndex, rowIndex, value, isSelected) => ({
         value,
+        isSelected,
         key: `${columnIndex}:${rowIndex}`,
-        selectionHandler: () => handlers.toggleCellSelection([columnIndex, rowIndex])
+        selectionHandler: () => handlers.handleCellSelection([columnIndex, rowIndex])
     });
     
     // build grid
@@ -33,7 +33,7 @@ const BingoSheet = ({ gameData, handlers }) => {
                 {
                     // build each cell in column
                     column.map((cell, rowIndex) => {
-                        const props = createSheetCellProps(columnIndex, rowIndex, cell.value);                    
+                        const props = createSheetCellProps(columnIndex, rowIndex, cell.value, cell.isSelected);                    
                         return ( <SheetCell {...props}/> );
                     })
                 }

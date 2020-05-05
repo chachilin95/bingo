@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import ValidateSheetSettings from './util/validator';
 import SheetGenerator from './util/generator';
 
-const BingoSheetGenerator = ({ handler }) => {
+const BingoSheetGenerator = ({ handlers }) => {
 
     const [errorMessage, setErrorMessage] = useState('');
     
@@ -74,7 +74,7 @@ const BingoSheetGenerator = ({ handler }) => {
         
         if (results.pass) {
             const sheet = SheetGenerator(settings);
-            handler({ sheet, settings });
+            handlers.handleSheetGeneration({ sheet, settings });
         } else {
             setErrorMessage(`The Sheet is Invalid: ${results.error}`)
         }

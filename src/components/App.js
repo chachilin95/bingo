@@ -9,7 +9,9 @@ export default () => {
     const initGameData = { sheet: [], settings: {}}
     const [gameData, updateGameData] = useState(initGameData);
 
-    const toggleCellSelection = (coords) => {
+    const handleSheetGeneration = (data) => updateGameData(data);    
+
+    const handleCellSelection = (coords) => {
         const [ column, row ] = coords;
 
         const updatedSheet = gameData.sheet.slice();
@@ -19,11 +21,11 @@ export default () => {
         updateGameData({ ...gameData, sheet: updatedSheet });
     };
 
-    const BingoSheetHandlers = { toggleCellSelection };
+    const BingoSheetHandlers = { handleSheetGeneration, handleCellSelection };
 
     return (
         <div>
-            <BingoSheetGenerator handler={(data) => updateGameData(data)}/>
+            <BingoSheetGenerator handlers={BingoSheetHandlers}/>
             <BingoSheet gameData={gameData} handlers={BingoSheetHandlers}/>
         </div>
     );

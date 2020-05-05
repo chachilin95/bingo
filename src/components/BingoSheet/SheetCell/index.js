@@ -1,20 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import './styles.css';
 
-const SheetCell = ({ value, selectionHandler }) => {
+const SheetCell = ({ value, isSelected, selectionHandler }) => {
 
-    const [isSelected, setIsSelected] = useState(false);
     const style = isSelected ? 'SheetCell__selected' : 'SheetCell';
-
-    const handleClick = () => {
-        setIsSelected(!isSelected);
-        selectionHandler();
-    };
     
     return (
         <div>
-            <button className={style} onClick={handleClick}>
+            <button className={style} onClick={() => selectionHandler()}>
                 {value}
             </button>
         </div>
