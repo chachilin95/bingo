@@ -9,34 +9,48 @@ const BlankBingoSheet = (
     </div>
 );
 
-const BingoSheet = ({ gameData }) => {
+const BingoSheet = ({ gameData, handlers }) => {
 
     const sheet = gameData.sheet;
-    const settings = gameData.settings;
 
     if (Array.isArray(sheet) && sheet.length === 0) {
         return BlankBingoSheet;
     }
+
+    const createSheetCellProps = (columnIndex, rowIndex, value) => ({
+        value,
+        key: `${columnIndex}:${rowIndex}`,
+        selectionHandler: () => handlers.toggleCellSelection([columnIndex, rowIndex])
+    });
     
-    let sheetJSX = [];
+    // build grid
+    let gridJSX = [];
     sheet.forEach((column, columnIndex) => {
-        sheetJSX.push(
+        
+        // build column
+        const columnJSX = (
             <div key={columnIndex} className='sheet__column'>
-                {column.map((cell, rowIndex) => {
-                    const cellKey=`${columnIndex}:${rowIndex}`;
-                    return (
-                        <SheetCell key={cellKey} cellValue={cell.value}/>
-                    );
-                })}
+                {
+                    // build each cell in column
+                    column.map((cell, rowIndex) => {
+                        const props = createSheetCellProps(columnIndex, rowIndex, cell.value);                    
+                        return ( <SheetCell {...props}/> );
+                    })
+                }
             </div>
-        );      
+        );
+
+        gridJSX.push(columnJSX);
     });
 
-    return (
+    // build bingo sheet
+    const sheetJSX = (
         <div className='sheet'>
-            {sheetJSX.map((sheetColumn) => sheetColumn)}
+            {gridJSX.map((sheetColumn) => sheetColumn)}
         </div>
     );
+
+    return sheetJSX;
 };
 
 export default BingoSheet;

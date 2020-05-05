@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const SheetCell = ({ cellValue }) => {
+import './styles.css';
+
+const SheetCell = ({ value, selectionHandler }) => {
+
+    const [isSelected, setIsSelected] = useState(false);
+    const style = isSelected ? 'SheetCell__selected' : 'SheetCell';
+
+    const handleClick = () => {
+        setIsSelected(!isSelected);
+        selectionHandler();
+    };
+    
     return (
         <div>
-            {cellValue}
+            <button className={style} onClick={handleClick}>
+                {value}
+            </button>
         </div>
     );
 };

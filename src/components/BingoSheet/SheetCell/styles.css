@@ -1,0 +1,7 @@
+.SheetCell {
+    color: black;
+}
+
+.SheetCell__selected {
+    color: red;
+}
