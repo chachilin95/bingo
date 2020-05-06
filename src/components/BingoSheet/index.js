@@ -2,6 +2,7 @@ import React from 'react';
 
 import './styles.css';
 import SheetCell from './SheetCell';
+import SheetColumn from './SheetColumn';
 
 const BlankBingoSheet = (
     <div>
@@ -15,30 +16,29 @@ const BingoSheet = ({ gameData, handlers }) => {
     if (Array.isArray(sheet) && sheet.length === 0) {
         return BlankBingoSheet;
     }
-
-    const createSheetCellProps = (columnIndex, rowIndex, value, isSelected) => ({
-        value,
-        isSelected,
-        key: `${columnIndex}:${rowIndex}`,
-        selectionHandler: () => handlers.handleCellSelection([columnIndex, rowIndex])
-    });
     
     // build grid
     let gridJSX = [];
     sheet.forEach((column, columnIndex) => {
-        
+
+        // build each cell for column
+        const sheetCells = column.map((cell, rowIndex) => {
+            const sheetCellProps = {
+                value: cell.value,
+                isSelected: cell.isSelected,
+                key: `cell:${columnIndex}:${rowIndex}`,
+                selectionHandler: () => handlers.handleCellSelection([columnIndex, rowIndex])
+            }    
+
+            return ( <SheetCell {...sheetCellProps}/> );
+        });
+
         // build column
-        const columnJSX = (
-            <div key={columnIndex} className='sheet__column'>
-                {
-                    // build each cell in column
-                    column.map((cell, rowIndex) => {
-                        const props = createSheetCellProps(columnIndex, rowIndex, cell.value, cell.isSelected);                    
-                        return ( <SheetCell {...props}/> );
-                    })
-                }
-            </div>
-        );
+        const sheetColumnProps = {
+            key: `column:${columnIndex}`,
+            cells: sheetCells
+        }
+        const columnJSX = ( <SheetColumn {...sheetColumnProps} /> );
 
         gridJSX.push(columnJSX);
     });
@@ -46,7 +46,7 @@ const BingoSheet = ({ gameData, handlers }) => {
     // build bingo sheet
     const sheetJSX = (
         <div className='sheet'>
-            {gridJSX.map((sheetColumn) => sheetColumn)}
+            { gridJSX }
         </div>
     );
 

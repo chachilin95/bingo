@@ -2,8 +2,3 @@
     display: flex;
     flex-direction: row;
 }
-
-.sheet__column {
-    display: flex;
-    flex-direction: column;
-}
